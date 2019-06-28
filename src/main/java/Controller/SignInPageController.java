@@ -11,17 +11,20 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+import static Model.ALL_USERS.ClientTemp;
+
 
 public class SignInPageController {
     public PasswordField Password;
     public TextField Username;
     public Label Label;
 
+
     public void SignUp(MouseEvent mouseEvent) throws IOException {
         new FxmlLoader().load("./src/main/java/View/SignUpPage.fxml");
     }
 
-    public void Submit(ActionEvent actionEvent) {
+    public void Submit(ActionEvent actionEvent) throws IOException {
         if (Username.getText().isEmpty() || Password.getText().isEmpty()) {
             Label.setText("Fill all items");
             Label.setVisible(true);
@@ -34,7 +37,9 @@ public class SignInPageController {
                 Label.setText("Error2");
                 Label.setVisible(true);
             } else {
-                //ToDO
+                ClientTemp = new User(Username.getText());
+                ClientTemp = ALL_USERS.getAllUsers().get(ALL_USERS.getAllUsers().indexOf(ClientTemp));
+                new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
             }
         }
     }

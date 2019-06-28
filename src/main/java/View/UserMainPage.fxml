@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserMainPageController">
+   <children>
+      <SplitPane dividerPositions="0.23968565815324164" prefHeight="750.0" prefWidth="1020.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="765.0" prefWidth="241.0">
+               <children>
+                  <SplitPane dividerPositions="0.14815803523758675, 0.500533902829685" orientation="VERTICAL" prefHeight="751.0" prefWidth="242.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="116.0" prefWidth="241.0">
+                           <children>
+                              <Text layoutX="127.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="zivdar1matin@gmail.com">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="128.0" fitWidth="110.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/Images/zivdar001matin.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Text layoutX="120.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="zivdar001matin">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="609.0" prefWidth="240.0">
+                           <children>
+                              <VBox prefHeight="610.0" prefWidth="240.0" spacing="15.0">
+                                 <children>
+                                    <HBox prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../resources/Icons/inbox.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button fx:id="inboxButton" mnemonicParsing="false" onAction="#showInbox" prefHeight="18.0" prefWidth="78.0" style="-fx-background-color: transparent; -fx-font-size: 18;" text="Inbox">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../resources/Icons/icons8-new-message-48.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button fx:id="newMessageButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="141.0" style="-fx-background-color: transparent; -fx-font-size: 18;" text="New Message">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../resources/Icons/icons8-sent-48.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button fx:id="sentButton" mnemonicParsing="false" onAction="#showSent" prefHeight="39.0" prefWidth="66.0" style="-fx-background-color: transparent; -fx-font-size: 18;" text="Sent">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="100.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../resources/Icons/icons8-star-filled-48.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button fx:id="importantButton" mnemonicParsing="false" onAction="#showImportant" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-font-size: 18;" text="Important">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <ListView fx:id="usersListView" prefHeight="751.0" prefWidth="240.0" />
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="777.0" prefWidth="789.0">
+               <children>
+                  <ListView fx:id="messagesListView" prefHeight="748.0" prefWidth="789.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

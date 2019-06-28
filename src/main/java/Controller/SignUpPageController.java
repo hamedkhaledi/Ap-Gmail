@@ -15,6 +15,7 @@ import java.io.IOException;
 public class SignUpPageController {
     public static User Temp;
     public TextField LastName;
+    public TextField FirstName;
     public TextField age;
     @FXML
     private TextField UserName;
@@ -31,11 +32,11 @@ public class SignUpPageController {
     public void Submit(ActionEvent actionEvent) throws IOException {
         SignUpflag = true;
         Temp = new User();
-        if (UserName.getText().isEmpty() || LastName.getText().isEmpty() || age.getText().isEmpty()) {
+        if (UserName.getText().isEmpty() || LastName.getText().isEmpty() || age.getText().isEmpty() || FirstName.getText().isEmpty()) {
             Label.setText("Fill all items");
             Label.setVisible(true);
             SignUpflag = false;
-        } else if (Password.getText().length() < 8 && !Password.getText().matches("^[a-zA-Z0-9]+$")) {
+        } else if (Password.getText().length() < 8 || !Password.getText().matches("^[a-zA-Z0-9]+$")) {
             Label.setText("Password must be 8 character at least");
             Label.setVisible(true);
             SignUpflag = false;
@@ -62,6 +63,8 @@ public class SignUpPageController {
                 Temp.setPassword(Password.getText());
                 Temp.setAge(Integer.parseInt(age.getText()));
                 Temp.setMailAddress(UserName.getText() + "@gmail.com");
+                Temp.setFirstName(FirstName.getText());
+                Temp.setLastName(LastName.getText());
                 new FxmlLoader().load("./src/main/java/View/SignUpPage2.fxml");
             }
         }

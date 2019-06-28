@@ -2,6 +2,7 @@ package Controller;
 
 import Model.ALL_USERS;
 import Model.Gender;
+import Model.IO.FxmlLoader;
 import ViewModel.MessageType;
 import ViewModel.ServerMessage;
 import javafx.event.ActionEvent;
@@ -9,13 +10,15 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+
 public class SignUpPage2Controller {
     public TextField PhoneNumber;
     public RadioButton Male;
     public RadioButton Female;
     private int ImageNumber = 1;
 
-    public void Submit(ActionEvent actionEvent) {
+    public void Submit(ActionEvent actionEvent) throws IOException {
         if (!PhoneNumber.getText().isEmpty()) {
             SignUpPageController.Temp.setPhoneNumber(PhoneNumber.getText());
         }
@@ -24,7 +27,10 @@ public class SignUpPage2Controller {
         else
             SignUpPageController.Temp.setGender(Gender.Female);
         SignUpPageController.Temp.setImageNumber(ImageNumber);
+        String Address = "./src/main/resources/Images/Faces/" + ImageNumber + ".png";
+        SignUpPageController.Temp.setImagePath(Address);
         ALL_USERS.getAllUsers().add(SignUpPageController.Temp);
+        new FxmlLoader().load("./src/main/java/View/SignInPage.fxml");
         new ServerConnection.ServerConnection(SignUpPageController.Temp.getUsername());
     }
 
