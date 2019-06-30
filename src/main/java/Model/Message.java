@@ -2,126 +2,160 @@ package Model;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Message implements Serializable {
-  private User sender;
-  private User reciever;
-  private String time;
-  private String subject;
-  private String text;
-  private String attachment;
-  private boolean sent;
-  private boolean recieved;
-  private boolean readed;
-  private boolean important;
-  private boolean removed;
+    private User sender;
+    private User reciever;
+    private String time;
+    private String subject;
+    private String text;
+    private String attachment;
+    private String FileName;
+    private boolean sent;
+    private boolean recieved;
+    private boolean readed;
+    private boolean important;
+    private boolean removed;
 
-  public Message(User sender, User reciever, String time, String subject, String text) {
-    this.sender = sender;
-    this.reciever = reciever;
-    this.time = time;
-    this.subject = subject;
-    this.text = text;
-    this.important = false;
-  }
+    public Message(User sender, User reciever, String time, String subject, String text) {
+        this.sender = sender;
+        this.reciever = reciever;
+        this.time = time;
+        this.subject = subject;
+        this.text = text;
+        this.important = false;
+    }
 
-  public Message(User sender, User reciever, String time, String subject, String text,
-      String attachment) {
-    this.sender = sender;
-    this.reciever = reciever;
-    this.time = time;
-    this.subject = subject;
-    this.text = text;
-    this.attachment = attachment;
-    this.important = false;
-  }
+    public Message(User sender, User reciever, String time, String subject, String text,
+                   String attachment) {
+        this.sender = sender;
+        this.reciever = reciever;
+        this.time = time;
+        this.subject = subject;
+        this.text = text;
+        this.attachment = attachment;
+        this.important = false;
+    }
 
-  public String getTime() {
-    return time;
-  }
+    public String getFileName() {
+        return FileName;
+    }
 
-  public String getSubject() {
-    return subject;
-  }
+    public void setFileName(String fileName) {
+        FileName = fileName;
+    }
 
-  public String getText() {
-    return text;
-  }
+    public String getTime() {
+        return time;
+    }
 
-  public boolean isReaded() {
-    return readed;
-  }
+    public String getSubject() {
+        return subject;
+    }
 
-  public boolean isImportant() {
-    return important;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public User getSender() {
-    return sender;
-  }
+    public boolean isReaded() {
+        return readed;
+    }
 
-  public void setSender(User sender) {
-    this.sender = sender;
-  }
+    public boolean isImportant() {
+        return important;
+    }
 
-  public void setReciever(User reciever) {
-    this.reciever = reciever;
-  }
+    public User getSender() {
+        return sender;
+    }
 
-  public void setTime(String time) {
-    this.time = time;
-  }
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
 
-  public void setSubject(String subject) {
-    this.subject = subject;
-  }
+    public void setReciever(User reciever) {
+        this.reciever = reciever;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-  public String getAttachment() {
-    return attachment;
-  }
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-  public void setAttachment(String attachment) {
-    this.attachment = attachment;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-  public boolean isSent() {
-    return sent;
-  }
+    public String getAttachment() {
+        return attachment;
+    }
 
-  public void setSent(boolean sent) {
-    this.sent = sent;
-  }
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 
-  public boolean isRecieved() {
-    return recieved;
-  }
+    public boolean isSent() {
+        return sent;
+    }
 
-  public void setRecieved(boolean recieved) {
-    this.recieved = recieved;
-  }
+    public void setSent(boolean sent) {
+        this.sent = sent;
+    }
 
-  public void setReaded(boolean readed) {
-    this.readed = readed;
-  }
+    public boolean isRecieved() {
+        return recieved;
+    }
 
-  public boolean isRemoved() {
-    return removed;
-  }
+    public void setRecieved(boolean recieved) {
+        this.recieved = recieved;
+    }
 
-  public void setRemoved(boolean removed) {
-    this.removed = removed;
-  }
+    public void setReaded(boolean readed) {
+        this.readed = readed;
+    }
 
-  public User getReciever() {
-    return reciever;
-  }
+    public boolean isRemoved() {
+        return removed;
+    }
 
-  public void setImportant(boolean important) {
-    this.important = important;
-  }
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    public User getReciever() {
+        return reciever;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return sent == message.sent &&
+                recieved == message.recieved &&
+                readed == message.readed &&
+                important == message.important &&
+                removed == message.removed &&
+                sender.equals(message.sender) &&
+                reciever.equals(message.reciever) &&
+                time.equals(message.time) &&
+                subject.equals(message.subject) &&
+                text.equals(message.text) &&
+                attachment.equals(message.attachment) &&
+                FileName.equals(message.FileName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sender, reciever, time, subject, text, attachment, FileName, sent, recieved, readed, important, removed);
+    }
 
 }

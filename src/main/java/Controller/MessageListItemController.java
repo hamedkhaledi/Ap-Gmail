@@ -1,9 +1,12 @@
 package Controller;
 
+import static Model.ALL_USERS.ClientTemp;
 import static Model.Main.ME;
 
 import Model.ALL_MESSAGES;
 import Model.IO.FxmlLoader;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
 import Model.Message;
 
 import java.io.File;
@@ -108,7 +111,7 @@ public class MessageListItemController {
                     + "-fx-min-width: 20;\n"
                     + "-fx-max-width: 20;\n"
                     + "-fx-shape:  \"M 0.000 5.000L 5.878 8.090L 4.755 1.545L 9.511 -3.090L 2.939 -4.045L 0.000 -10.000L -2.939 -4.045L -9.511 -3.090L -4.755 1.545L -5.878 8.090L 0.000 5.000\";\n");
-            message.setImportant(false);
+            // message.setImportant(false);
         } else {
             starButton.setStyle("-icon-paint: blue;\n"
                     + "-fx-background-color: -icon-paint;\n"
@@ -118,14 +121,16 @@ public class MessageListItemController {
                     + "-fx-min-width: 20;\n"
                     + "-fx-max-width: 20;\n"
                     + "-fx-shape:  \"M 0.000 5.000L 5.878 8.090L 4.755 1.545L 9.511 -3.090L 2.939 -4.045L 0.000 -10.000L -2.939 -4.045L -9.511 -3.090L -4.755 1.545L -5.878 8.090L 0.000 5.000\";\n");
-            message.setImportant(true);
+            //    message.setImportant(true);
         }
-        FileOutputStream fileOut =
-                new FileOutputStream("./src/main/resources/messages.ser");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(ALL_MESSAGES.getAllMessages());
-        out.close();
-        fileOut.close();
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Star, ClientTemp, null, message));
+        message.setImportant(!message.isImportant());
+//        FileOutputStream fileOut =
+//                new FileOutputStream("./src/main/resources/messages.ser");
+//        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//        out.writeObject(ALL_MESSAGES.getAllMessages());
+//        out.close();
+//        fileOut.close();
     }
 
     public void deleteMessage(ActionEvent event) throws IOException {
@@ -137,16 +142,17 @@ public class MessageListItemController {
 //        out.writeObject(ALL_MESSAGES.getAllMessages());
 //        out.close();
 //        fileOut.close();
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Delete, ClientTemp, null, message));
         message.setRemoved(true);
 //        removeLabel.setVisible(true);
 //        } else {
 //        ALL_MESSAGES.getAllMessages().add(message);
-        FileOutputStream fileOut =
-                new FileOutputStream("./src/main/resources/messages.ser");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(ALL_MESSAGES.getAllMessages());
-        out.close();
-        fileOut.close();
+//        FileOutputStream fileOut =
+//                new FileOutputStream("./src/main/resources/messages.ser");
+//        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//        out.writeObject(ALL_MESSAGES.getAllMessages());
+//        out.close();
+//        fileOut.close();
 //        message.setRemoved(false);
 //        removeLabel.setVisible(false);
 //        }
@@ -172,9 +178,13 @@ public class MessageListItemController {
         if (message.isReaded()) {
             readedStatusImage.setImage(new Image(
                     Paths.get("./src/main/resources/Icons/readedMessage.png").toUri().toString()));
+            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Unread, ClientTemp, null, message));
         } else {
             readedStatusImage.setImage(new Image(
                     Paths.get("./src/main/resources/Icons/unreadMessage.png").toUri().toString()));
+            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Read, ClientTemp, null, message));
+
         }
+        message.setImportant(!message.isReaded());
     }
 }

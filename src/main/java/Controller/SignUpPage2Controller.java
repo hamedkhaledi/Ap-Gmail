@@ -2,9 +2,11 @@ package Controller;
 
 import Model.ALL_USERS;
 import Model.Gender;
+import Model.IO.Connection.Connection;
 import Model.IO.FxmlLoader;
-import ViewModel.MessageType;
-import ViewModel.ServerMessage;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
+import Model.Main;
 import javafx.event.ActionEvent;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -29,9 +31,9 @@ public class SignUpPage2Controller {
         SignUpPageController.Temp.setImageNumber(ImageNumber);
         String Address = "./src/main/resources/Images/Faces/" + ImageNumber + ".png";
         SignUpPageController.Temp.setImagePath(Address);
-        ALL_USERS.getAllUsers().add(SignUpPageController.Temp);
+        //ALL_USERS.getAllUsers().add(SignUpPageController.Temp);
+        Main.ConnectionTemp.sendRequest(new ServerMessage(MessageType.SignUp, SignUpPageController.Temp, null, null));
         new FxmlLoader().load("./src/main/java/View/SignInPage.fxml");
-        new ServerConnection.ServerConnection(SignUpPageController.Temp.getUsername());
     }
 
     public void a(MouseEvent mouseEvent) {

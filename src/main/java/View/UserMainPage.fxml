@@ -68,7 +68,7 @@
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../resources/Icons/icons8-new-message-48.png" />
+                                                <Image url="@../../resources/Icons/icons8-new-serverMessage-48.png" />
                                              </image>
                                           </ImageView>
                                           <Button fx:id="newMessageButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="141.0" style="-fx-background-color: transparent; -fx-font-size: 18;" text="New Message">

@@ -49,6 +49,7 @@ class Person {
 }
 
 public class User extends Person implements Serializable {
+    private static final long serialVersionUID = 19L;
     private String username;//final
     private String mailAddress;
     private String password;
@@ -59,14 +60,19 @@ public class User extends Person implements Serializable {
     private Set<User> blackList = new HashSet<>();
     private transient ObjectInputStream inputStream;
     private transient ObjectOutputStream outputStream;
-    private static final long serialVersionUID = 1;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                '}';
+    }
 
     public User() {
         super();
     }
 
     public User(String Username) {
-        super();
         this.username = Username;
     }
 

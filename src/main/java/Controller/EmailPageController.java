@@ -2,6 +2,8 @@ package Controller;
 
 import Model.ALL_MESSAGES;
 import Model.IO.FxmlLoader;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
 import Model.Message;
 import Model.MessageListItem;
 import com.sun.javafx.charts.Legend;
@@ -30,7 +32,8 @@ public class EmailPageController {
     private ArrayList<Message> messagesToShow;
 
     public void initialize() throws IOException, ClassNotFoundException {
-        ALL_MESSAGES.init();
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reload, ClientTemp, null, null));
+        ALL_MESSAGES.initUser(SignInPageController.ConnectionSign);
         ReadMailPageController.isReply = false;
         ReadMailPageController.isForward = false;
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages().stream()
@@ -77,6 +80,7 @@ public class EmailPageController {
     }
 
     public void Exit(MouseEvent mouseEvent) throws IOException {
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Disconnect, ClientTemp, null, null));
         new FxmlLoader().load("./src/main/java/View/SignInPage.fxml");
     }
 

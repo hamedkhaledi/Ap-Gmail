@@ -1,7 +1,10 @@
 package Controller;
 
 import Model.ALL_USERS;
+import Model.IO.Connection.Connection;
 import Model.IO.FxmlLoader;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
 import Model.User;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -11,6 +14,44 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import static Model.ALL_USERS.ClientTemp;
 
 
@@ -18,7 +59,7 @@ public class SignInPageController {
     public PasswordField Password;
     public TextField Username;
     public Label Label;
-
+    public static Connection ConnectionSign;
 
     public void SignUp(MouseEvent mouseEvent) throws IOException {
         new FxmlLoader().load("./src/main/java/View/SignUpPage.fxml");
@@ -39,6 +80,9 @@ public class SignInPageController {
             } else {
                 ClientTemp = new User(Username.getText());
                 ClientTemp = ALL_USERS.getAllUsers().get(ALL_USERS.getAllUsers().indexOf(ClientTemp));
+                ConnectionSign = new Connection(ClientTemp);
+//                ConnectionSign.initializeServices();
+                ConnectionSign.sendRequest(new ServerMessage(MessageType.SignIn, ClientTemp, null, null));
                 new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
             }
         }

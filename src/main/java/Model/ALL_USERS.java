@@ -21,6 +21,10 @@ public class ALL_USERS {
 
     }
 
+    public static void setAllUsers(List<User> allUsers) {
+        ALL_USERS = allUsers;
+    }
+
     public static List<User> getAllUsers() {
         return ALL_USERS;
     }

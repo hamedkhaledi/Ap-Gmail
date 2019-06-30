@@ -1,5 +1,8 @@
 package Model;
 
+import Model.IO.Connection.Connection;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +19,12 @@ public class ALL_MESSAGES {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(MESSAGES_FILE_URL));
         ALL_MESSAGES = (List<Message>) objectInputStream.readObject();
         objectInputStream.close();
+    }
+
+    public static void initUser(Connection connection)
+            throws IndexOutOfBoundsException, IOException, ClassNotFoundException {
+        ALL_MESSAGES = (List<Message>) connection.getIn().readObject();
+        System.out.println(ALL_MESSAGES);
     }
 
     public static List<Message> getAllMessages() {

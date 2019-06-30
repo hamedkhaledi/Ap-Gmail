@@ -1,17 +1,21 @@
 package Model;
 
+import Controller.SignUpPageController;
+import Model.IO.Connection.Connection;
 import Model.IO.FxmlLoader;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import Server.Server;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+    public static Connection ConnectionTemp;
+    public static User CurrentUser = new User();
     public static User ME;
     private static final String USERS_FILE_URL = "src/main/resources/users.ser";
 
@@ -45,17 +49,17 @@ public class Main extends Application {
 ////            ALL_USERS.init();
 //            FileOutputStream fileOut =
 //                    new FileOutputStream("./src/main/resources/messages.ser");
-//            List<Message> messages = new ArrayList<>();
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(0), ALL_USERS.getAllUsers().get(1), "2019/07/21/13:33", "This Should not be Shown", "Go and F*** yourself"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(0), ALL_USERS.getAllUsers().get(2), "2019/06/09/8:33", "Hala FIFA", "Lanat b PES!!!"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(3), "2018/11/27/9:46", "Save ServerMessage", "I want to save this message"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(2), ALL_USERS.getAllUsers().get(4), "2017/08/10/10:23", "Alan", "Darim mirim k ronaldo ro pack kninm."));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(3), ALL_USERS.getAllUsers().get(5), "2011/07/10/4:56", "Test", "This is just for testing."));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(4), ALL_USERS.getAllUsers().get(1), "2012/04/27/23:59", "Echte Liebe.", "Hummels raftesh bayern :/"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(5), ALL_USERS.getAllUsers().get(6), "2019/02/13/00:00", "Lool", "00:00"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(6), ALL_USERS.getAllUsers().get(1), "2011/03/20/15:03", "Echte Liebe.", "Realo 3:1 bordim :)))"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(4), "2012/02/30/17:21", "Null", "chizi b zehnaam nmirese"));
-////            messages.add(new Message(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(2), "2013/10/07/13:09", "Null2", "baz ham chizi b zehnam nmirese"));
+//            List<ServerMessage> messages = new ArrayList<>();
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(0), ALL_USERS.getAllUsers().get(1), "2019/07/21/13:33", "This Should not be Shown", "Go and F*** yourself"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(0), ALL_USERS.getAllUsers().get(2), "2019/06/09/8:33", "Hala FIFA", "Lanat b PES!!!"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(3), "2018/11/27/9:46", "Save ServerMessage", "I want to save this message"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(2), ALL_USERS.getAllUsers().get(4), "2017/08/10/10:23", "Alan", "Darim mirim k ronaldo ro pack kninm."));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(3), ALL_USERS.getAllUsers().get(5), "2011/07/10/4:56", "Test", "This is just for testing."));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(4), ALL_USERS.getAllUsers().get(1), "2012/04/27/23:59", "Echte Liebe.", "Hummels raftesh bayern :/"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(5), ALL_USERS.getAllUsers().get(6), "2019/02/13/00:00", "Lool", "00:00"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(6), ALL_USERS.getAllUsers().get(1), "2011/03/20/15:03", "Echte Liebe.", "Realo 3:1 bordim :)))"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(4), "2012/02/30/17:21", "Null", "chizi b zehnaam nmirese"));
+////            messages.add(new ServerMessage(ALL_USERS.getAllUsers().get(1), ALL_USERS.getAllUsers().get(2), "2013/10/07/13:09", "Null2", "baz ham chizi b zehnam nmirese"));
 //            ObjectOutputStream out = new ObjectOutputStream(fileOut);
 //            out.writeObject(messages);
 //            out.close();
@@ -68,6 +72,14 @@ public class Main extends Application {
 //            e.printStackTrace();
 //        }
         launch(args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                ConnectionTemp.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("In shutdown hook");
+        }, "Shutdown-thread"));
     }
 
     @Override
@@ -75,10 +87,15 @@ public class Main extends Application {
 //        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(USERS_FILE_URL));
 //        objectOutputStream.writeObject(ALL_USERS.getAllUsers());
 //        objectOutputStream.close();
-        Server.start();
-        ALL_USERS.init();
-        ALL_MESSAGES.init();
+//        ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(new FileOutputStream("src/main/resources/messages.ser"));
+//        objectOutputStream2.writeObject(ALL_USERS.getAllUsers());
+//        objectOutputStream2.close();
 //        ME = ALL_USERS.getAllUsers().get(1);
+//        ALL_USERS.init();
+//        ALL_MESSAGES.init();
+        ConnectionTemp = new Connection(CurrentUser);
+        ConnectionTemp.initializeServices();
+        ConnectionTemp.sendRequest(new ServerMessage(MessageType.Connect, CurrentUser, null, null));
     }
 
     @Override

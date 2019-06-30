@@ -1,10 +1,9 @@
 package Controller;
 
-import Model.ALL_MESSAGES;
-import Model.ALL_USERS;
+import Model.*;
 import Model.IO.FxmlLoader;
-import Model.Message;
-import Model.User;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -53,6 +52,7 @@ public class SendMailPageController {
             To.setText(ALL_MESSAGES.ClientMessage.getSender().getUsername());
             To.setEditable(false);
         }
+
         if (ReadMailPageController.isForward) {
             Text.setText(ALL_MESSAGES.ClientMessage.getText());
             Text.setEditable(false);
@@ -88,13 +88,23 @@ public class SendMailPageController {
                 message = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText());
             } else {
                 message = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText(), AttachURL);
+//                Connection.sendFile(message);
             }
-            ALL_MESSAGES.getAllMessages().add(message);
-            out.writeObject(ALL_MESSAGES.getAllMessages());
-            out.close();
-            fileOut.close();
+            if (ReadMailPageController.isForward)
+                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Forward, ClientTemp, Temp, message));
+            else if (ReadMailPageController.isReply)
+                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reply, ClientTemp, Temp, message));
+            else
+            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Send, ClientTemp, Temp, message));
+            //          ALL_MESSAGES.getAllMessages().add(message);
+            //out.writeObject(ALL_MESSAGES.getAllMessages());
+            //out.close();
+            //fileOut.close();
+            System.out.println(2);
             new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+            System.out.println(3);
         } else {
+//TODO
         }
     }
 
