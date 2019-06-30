@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="389.0" style="-fx-background-color: black;" stylesheets="@css/StudentPage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SendMailPageController">
+    <children>
+        <TextField fx:id="To" alignment="CENTER" opacity="0.2" prefHeight="37.0" prefWidth="389.0" promptText="To" />
+        <ImageView fx:id="Attachment" fitHeight="40.0" fitWidth="40.0" layoutX="278.0" layoutY="440.0" onMouseClicked="#Attach" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/Icons/29-292177_it-is-an-image-of-a-black-paperclip.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="Label" layoutX="177.0" layoutY="56.0" text="Label" textFill="RED" visible="false" />
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="333.0" layoutY="440.0" onMouseClicked="#Send" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/Icons/icons8-sent-48.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="Subject" alignment="CENTER" layoutY="38.0" opacity="0.2" prefHeight="37.0" prefWidth="389.0" promptText="Subject" />
+        <TextField fx:id="Text" alignment="CENTER" layoutX="43.0" layoutY="101.0" prefHeight="298.0" prefWidth="303.0" promptText="Text" />
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="440.0" onMouseClicked="#quit" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/Icons/43-512.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

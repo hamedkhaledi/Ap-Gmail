@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmailPageController">
+   <children>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="15.0" onMouseClicked="#Compose" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/sending-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="60.0" onMouseClicked="#Inbox" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/698925-icon-92-inbox-download-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="105.0" onMouseClicked="#showImportant" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/star_bookmark_favorite_shape_competitive_trophy_medal_winning_popularity_glory_high_awards_winners_badge_hero_victory_hit_proud_honor_leadership_competition_prize_premium_-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="160.0" onMouseClicked="#showSent" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/61-512.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="messagesListView" layoutX="61.0" layoutY="56.0" prefHeight="444.0" prefWidth="639.0" style="-fx-background-color: white;" />
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="450.0" onMouseClicked="#Exit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/277210.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="395.0" onMouseClicked="#Setting" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/settings-circle-blue-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="85.0" layoutY="10.0" onMouseClicked="#Search" opacity="0.84" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/blue-search-icon-transparent-background-3.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="SearchText" layoutX="125.0" layoutY="13.0" opacity="0.77" prefHeight="25.0" prefWidth="149.0" promptText="Search" stylesheets="@css/TeacherPage.css" />
+      <RadioButton fx:id="SubjectRadio" layoutX="285.0" layoutY="9.0" mnemonicParsing="false" selected="true" stylesheets="@css/SinUpPage.css" text="Subject" textFill="#324ad7">
+         <toggleGroup>
+            <ToggleGroup fx:id="a" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="UsernameRadio" layoutX="285.0" layoutY="34.0" mnemonicParsing="false" stylesheets="@css/SinUpPage.css" text="Username" textFill="#3030c9" toggleGroup="$a" />
+      <ImageView fx:id="Reload" fitHeight="35.0" fitWidth="35.0" layoutX="646.0" layoutY="10.0" onMouseClicked="#Reload" opacity="0.84" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/refresh-circle-blue-512.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
