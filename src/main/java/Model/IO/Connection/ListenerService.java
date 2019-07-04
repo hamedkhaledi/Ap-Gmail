@@ -11,7 +11,7 @@ public class ListenerService implements Runnable {
     public void run() {
         try {
             while (true) {
-                System.out.println(connection.getRespond());
+              connection.getRespond();
             }
         } catch (ServerConnectionException e) {
             e.printStackTrace();

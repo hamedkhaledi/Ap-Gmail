@@ -1,9 +1,12 @@
 package Controller;
 
 import Model.*;
+import Model.IO.Connection.Connection2;
+import Model.IO.Connection.Connection3;
 import Model.IO.FxmlLoader;
 import Model.IO.ViewModel.MessageType;
 import Model.IO.ViewModel.ServerMessage;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -38,6 +41,8 @@ public class SendMailPageController {
     @FXML
     private TextField Subject;
     private String AttachURL = "";
+    private String FileName;
+    public AnchorPane ProgressPane;
 
     public void initialize() {
         To.setText("");
@@ -48,6 +53,7 @@ public class SendMailPageController {
         Subject.setText("");
         AttachURL = "";
         Attachment.setDisable(false);
+        ProgressPane.setVisible(false);
         if (ReadMailPageController.isReply) {
             To.setText(ALL_MESSAGES.ClientMessage.getSender().getUsername());
             To.setEditable(false);
@@ -69,41 +75,59 @@ public class SendMailPageController {
         FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) Pane.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null)
+        if (selectedFile != null) {
             AttachURL = selectedFile.getCanonicalPath();
-        else
+            FileName = selectedFile.getName();
+        } else
             AttachURL = "";
         System.out.println(AttachURL);
     }
 
-    public void Send(MouseEvent mouseEvent) throws IOException {
-        FileOutputStream fileOut =
-                new FileOutputStream("./src/main/resources/messages.ser");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
-        Message message;
+    public void Send(MouseEvent mouseEvent) throws IOException, ClassNotFoundException {
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reload, ClientTemp, null, null));
+        ALL_MESSAGES.initUser(SignInPageController.ConnectionSign);
+        Message message = null;
         if (ALL_USERS.getAllUsers().contains(new User(To.getText()))) {
             User Temp = ALL_USERS.getAllUsers().get(ALL_USERS.getAllUsers().indexOf(new User(To.getText())));
-            if (AttachURL.isEmpty()) {
-                message = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText());
-            } else {
-                message = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText(), AttachURL);
-//                Connection.sendFile(message);
-            }
-            if (ReadMailPageController.isForward)
-                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Forward, ClientTemp, Temp, message));
-            else if (ReadMailPageController.isReply)
-                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reply, ClientTemp, Temp, message));
-            else
-            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Send, ClientTemp, Temp, message));
-            //          ALL_MESSAGES.getAllMessages().add(message);
-            //out.writeObject(ALL_MESSAGES.getAllMessages());
-            //out.close();
-            //fileOut.close();
-            System.out.println(2);
-            new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
-            System.out.println(3);
+            final Message[] finalMessage = {message};
+            Task<String> task2 = null;
+            task2 = new Task<String>() {
+                @Override
+                protected String call() throws Exception {
+                    if (AttachURL.isEmpty()) {
+                        finalMessage[0] = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText());
+                    } else {
+                        finalMessage[0] = new Message(ClientTemp, Temp, getCurrentTimeUsingCalendar(), Subject.getText(), Text.getText(), AttachURL);
+                        finalMessage[0].setFileName(FileName);
+                        Connection3.sendFile(finalMessage[0]);
+                    }
+                    if (ReadMailPageController.isForward)
+                        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Forward, ClientTemp, Temp, finalMessage[0]));
+                    else if (ReadMailPageController.isReply)
+                        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reply, ClientTemp, Temp, finalMessage[0]));
+                    else
+                        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Send, ClientTemp, Temp, finalMessage[0]));
+                    return "";
+                }
+            };
+            ProgressPane.setVisible(true);
+            new Thread(task2).start();
+
+            task2.setOnSucceeded(e -> {
+                try {
+                    new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            });
         } else {
+            message = new Message();
+            message.setTime(getCurrentTimeUsingCalendar());
+            message.setSubject(Subject.getText());
+            message.setReciever(new User());
+            message.setSender(ClientTemp);
+            new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Error, ClientTemp, new User(), message));
 //TODO
         }
     }

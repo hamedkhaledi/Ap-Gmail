@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" cache="true" prefHeight="72.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" cache="true" prefHeight="72.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="textLabel" layoutX="236.0" layoutY="40.0" prefHeight="30.0" prefWidth="487.0" text="text will be show here ................. .">
+      <Label fx:id="textLabel" layoutX="236.0" layoutY="40.0" prefHeight="30.0" prefWidth="343.0" text="text will be show here ................. .">
          <font>
             <Font size="17.0" />
          </font>
@@ -23,17 +23,12 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Button fx:id="starButton" layoutX="10.0" layoutY="46.0" minHeight="19.0" mnemonicParsing="false" onAction="#importantChanger" prefHeight="21.0" prefWidth="20.0" style="-icon-paint: white; -fx-background-color: -icon-paint; -fx-border-style: solid; -fx-min-height: 20; -fx-max-height: 20; -fx-min-width: 20; -fx-max-width: 20; -fx-shape: &quot;M 0.000 5.000L 5.878 8.090L 4.755 1.545L 9.511 -3.090L 2.939 -4.045L 0.000 -10.000L -2.939 -4.045L -9.511 -3.090L -4.755 1.545L -5.878 8.090L 0.000 5.000&quot;;">
+      <Button fx:id="starButton" layoutX="14.0" layoutY="45.0" maxWidth="69.0" mnemonicParsing="false" onAction="#importantChanger" prefHeight="20.0" prefWidth="69.0" style="-icon-paint: white; -fx-background-color: -icon-paint; -fx-border-style: solid; -fx-min-height: 20; -fx-max-height: 20; -fx-min-width: 20; -fx-max-width: 20; -fx-shape: &quot;M 0.000 5.000L 5.878 8.090L 4.755 1.545L 9.511 -3.090L 2.939 -4.045L 0.000 -10.000L -2.939 -4.045L -9.511 -3.090L -4.755 1.545L -5.878 8.090L 0.000 5.000&quot;;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fx:id="statusImage" fitHeight="20.0" fitWidth="20.0" layoutX="100.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/Icons/saved.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="subjectButton" alignment="BASELINE_LEFT" layoutX="147.0" layoutY="37.0" mnemonicParsing="false" onAction="#openMessage" prefHeight="30.0" prefWidth="572.0" style="-fx-background-color: transparent; -fx-padding: 0px; -fx-border-insets: 0px; -fx-background-insets: 0px;" text="Subject" textFill="#939716">
+      <Button fx:id="subjectButton" alignment="BASELINE_LEFT" layoutX="148.0" layoutY="37.0" mnemonicParsing="false" onAction="#openMessage" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: transparent; -fx-padding: 0px; -fx-border-insets: 0px; -fx-background-insets: 0px;" text="Subject" textFill="#939716">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -46,12 +41,12 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <ImageView fx:id="readedStatusImage" fitHeight="20.0" fitWidth="20.0" layoutX="70.0" layoutY="45.0">
+      <ImageView fx:id="readedStatusImage" fitHeight="30.0" fitWidth="30.0" layoutX="89.0" layoutY="40.0">
          <image>
             <Image url="@../../resources/Icons/readedMessage.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="40.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="46.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/dustbin.png" />
          </image>
@@ -59,21 +54,26 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label fx:id="From" layoutX="147.0" layoutY="6.0" prefHeight="30.0" prefWidth="487.0" text="From" textFill="#e80909">
+      <Label fx:id="From" layoutX="147.0" layoutY="6.0" prefHeight="30.0" prefWidth="433.0" text="From" textFill="#e80909">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Button fx:id="removeButton1" layoutX="70.0" layoutY="46.0" mnemonicParsing="false" onAction="#ChangeRead" prefHeight="25.0" prefWidth="20.0" style="-fx-background-color: transparent;">
+      <Button fx:id="removeButton1" layoutX="89.0" layoutY="40.0" mnemonicParsing="false" onAction="#ChangeRead" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="40.0" layoutY="44.0" mnemonicParsing="false" onAction="#deleteMessage" prefHeight="25.0" prefWidth="20.0" style="-fx-background-color: transparent;">
+      <Button layoutX="47.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteMessage" prefHeight="20.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="Garbage">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="Image1" fitHeight="60.0" fitWidth="60.0" layoutX="574.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Images/Faces/4.png" />
+         </image>
+      </ImageView>
    </children>
    <effect>
       <Lighting>

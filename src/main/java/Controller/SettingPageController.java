@@ -1,20 +1,24 @@
 package Controller;
 
-import Model.ALL_USERS;
-import Model.Gender;
+import Model.*;
+import Model.IO.Connection.Connection;
 import Model.IO.FxmlLoader;
-import Model.User;
+import Model.IO.ViewModel.MessageType;
+import Model.IO.ViewModel.ServerMessage;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 import static Model.ALL_USERS.ClientTemp;
+import static Model.Main.ConnectionTemp;
+import static Model.Main.CurrentUser;
 
 public class SettingPageController {
     public TextField PhoneNumber;
@@ -28,9 +32,10 @@ public class SettingPageController {
     private PasswordField Password;
     @FXML
     private Label Label;
-    private boolean SignUpflag;
+    private boolean Settingflag;
 
     public void Submit(ActionEvent actionEvent) throws IOException {
+        Settingflag = true;
         if (!PhoneNumber.getText().isEmpty()) {
             ALL_USERS.ClientTemp.setPhoneNumber(PhoneNumber.getText());
         }
@@ -43,36 +48,40 @@ public class SettingPageController {
             String Address = "./src/main/resources/Images/Faces/" + ImageNumber + ".png";
             ALL_USERS.ClientTemp.setImagePath(Address);
         }
-        SignUpflag = true;
         if (!LastName.getText().isEmpty())
             ALL_USERS.ClientTemp.setLastName(LastName.getText());
         if (!Password.getText().isEmpty()) {
             if (Password.getText().length() < 8 || !Password.getText().matches("^[a-zA-Z0-9]+$")) {
                 Label.setText("Password must be 8 character at least");
                 Label.setVisible(true);
-                SignUpflag = false;
+                Settingflag = false;
             } else {
-                ALL_USERS.ClientTemp.setLastName(Password.getText());
+                ALL_USERS.ClientTemp.setPassword(Password.getText());
             }
         }
         if (!FirstName.getText().isEmpty())
-            ALL_USERS.ClientTemp.setLastName(FirstName.getText());
+            ALL_USERS.ClientTemp.setFirstName(FirstName.getText());
         if (!age.getText().isEmpty()) {
             try {
                 double d = Double.parseDouble(age.getText());
                 if (d < 13) {
                     Label.setText("Error1");
                     Label.setVisible(true);
-                    SignUpflag = false;
+                    Settingflag = false;
                 } else
                     ALL_USERS.ClientTemp.setAge(Integer.parseInt(age.getText()));
             } catch (NumberFormatException | NullPointerException nfe) {
                 Label.setText("Error2");
                 Label.setVisible(true);
-                SignUpflag = false;
+                Settingflag = false;
             }
         }
-        new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+        if (Settingflag) {
+            Main.ConnectionTemp = new Connection(CurrentUser);
+            Main.ConnectionTemp.initializeServices();
+            new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+            ConnectionTemp.sendRequest(new ServerMessage(MessageType.Setting, ALL_USERS.ClientTemp, null, null));
+        }
     }
 
 
@@ -108,4 +117,25 @@ public class SettingPageController {
         ImageNumber = 8;
     }
 
+    /**
+     * Blocks Page
+     */
+    @FXML
+    public ListView<User> ListView;
+
+    private ArrayList<User> UsersToShow = new ArrayList<>();
+
+    public void initialize() throws IOException, ClassNotFoundException {
+
+        UsersToShow = (ArrayList<User>) ALL_USERS.getAllUsers().stream()
+                .filter(a -> ClientTemp.getBlackList().contains(a))
+                .collect(Collectors.toList());
+        Collections.reverse(UsersToShow);
+        ListView.setItems(FXCollections.observableArrayList(UsersToShow));
+        ListView.setCellFactory(ListView -> new UserListItem());
+    }
+
+    public void Back(MouseEvent mouseEvent) throws IOException {
+        new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+    }
 }

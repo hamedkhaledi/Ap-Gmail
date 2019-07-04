@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmailPageController">
    <children>
@@ -30,7 +34,7 @@
             <Image url="@../../resources/Icons/61-512.png" />
          </image>
       </ImageView>
-      <ListView fx:id="messagesListView" layoutX="61.0" layoutY="56.0" prefHeight="444.0" prefWidth="639.0" style="-fx-background-color: white;" />
+      <ListView fx:id="messagesListView" layoutX="61.0" layoutY="56.0" prefHeight="444.0" prefWidth="639.0" style="-fx-background-color: #d528cf;" />
       <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="450.0" onMouseClicked="#Exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/277210.png" />
@@ -53,9 +57,48 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="UsernameRadio" layoutX="285.0" layoutY="34.0" mnemonicParsing="false" stylesheets="@css/SinUpPage.css" text="Username" textFill="#3030c9" toggleGroup="$a" />
-      <ImageView fx:id="Reload" fitHeight="35.0" fitWidth="35.0" layoutX="646.0" layoutY="10.0" onMouseClicked="#Reload" opacity="0.84" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Reload" fitHeight="35.0" fitWidth="35.0" layoutX="654.0" layoutY="10.0" onMouseClicked="#Reload" opacity="0.84" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/refresh-circle-blue-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Arrow" fitHeight="40.0" fitWidth="40.0" layoutX="662.0" layoutY="460.0" opacity="0.61" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/operation-next.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="48.0" fitWidth="46.0" layoutX="654.0" layoutY="455.0" onMouseClicked="#ClickArrow" onMouseEntered="#ShowArrow" onMouseExited="#OffArrow" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="UserListView" layoutX="200.0" layoutY="56.0" prefHeight="444.0" prefWidth="361.0" style="-fx-background-color: #d528cf;" />
+      <AnchorPane fx:id="ProfilePane" layoutX="428.0" layoutY="503.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="ProfileLabel" alignment="CENTER" layoutX="78.0" prefHeight="59.0" prefWidth="122.0" text="Label" textFill="#332bcd">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="ProfileLabel2" alignment="CENTER" layoutX="8.0" layoutY="59.0" prefHeight="134.0" prefWidth="186.0" text="Label" textFill="#259a33">
+               <font>
+                  <Font name="Ink Free" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="ProfileImage" fitHeight="59.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/Images/Faces/2.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="10.0" layoutY="215.0" onMouseClicked="#Chat" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/189-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="600.0" layoutY="10.0" onMouseClicked="#BackUp" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/033_-_Download_from_Cloud-512.png" />
          </image>
       </ImageView>
    </children>

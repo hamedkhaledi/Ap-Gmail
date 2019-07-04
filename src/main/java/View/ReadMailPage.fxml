@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -46,10 +47,20 @@
             <Image url="@../../resources/Icons/fast-forward-30-696410.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="332.0" layoutY="31.0" onMouseClicked="#Block" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="BlockIcon" fitHeight="35.0" fitWidth="34.0" layoutX="332.0" layoutY="31.0" onMouseClicked="#Block" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/block_white_216x216.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="ProgressPane" opacity="0.88" prefHeight="500.0" prefWidth="389.0" style="-fx-background-color: #D8BFD8;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="30.0" layoutY="99.0" prefHeight="59.0" prefWidth="338.0" text="Wait for Downloading..." textAlignment="CENTER" textFill="#ff4400">
+               <font>
+                  <Font name="Microsoft Himalaya" size="49.0" />
+               </font>
+            </Label>
+            <ProgressIndicator layoutX="171.0" layoutY="361.0" prefHeight="62.0" prefWidth="47.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

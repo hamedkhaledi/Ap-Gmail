@@ -8,7 +8,20 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-class Person {
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 19L;
+    private String username;//final
+    private String mailAddress;
+    private String password;
+    private int age;
+    private String phoneNumber = "";
+    private String imagePath;
+    private int ImageNumber;
+    private Set<User> blackList = new HashSet<>();
+    private transient ObjectInputStream inputStream;
+    private transient ObjectOutputStream outputStream;
+
     private String firstName;
     private String lastName;
     private String birthday;
@@ -46,20 +59,6 @@ class Person {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-}
-
-public class User extends Person implements Serializable {
-    private static final long serialVersionUID = 19L;
-    private String username;//final
-    private String mailAddress;
-    private String password;
-    private int age;
-    private String phoneNumber = "";
-    private String imagePath;
-    private int ImageNumber;
-    private Set<User> blackList = new HashSet<>();
-    private transient ObjectInputStream inputStream;
-    private transient ObjectOutputStream outputStream;
 
     @Override
     public String toString() {
@@ -70,6 +69,12 @@ public class User extends Person implements Serializable {
 
     public User() {
         super();
+    }
+
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public User(String Username) {

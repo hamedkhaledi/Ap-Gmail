@@ -24,7 +24,7 @@ public class FxmlLoader {
         mainStage.setResizable(false);
         //initStyle as Decorated
         mainStage.initStyle(StageStyle.DECORATED);
-        mainStage.getIcons().add(new Image(Paths.get("Icons/icons8-gmail-48.png").toUri().toString()));
+        mainStage.getIcons().add(new Image(Paths.get("./src/main/resources/Icons/icons8-gmail-48.png").toUri().toString()));
     }
 
     public void load(String url) throws IOException {

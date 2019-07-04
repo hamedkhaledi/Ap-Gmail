@@ -47,7 +47,7 @@
             <children>
                 <ImageView fitHeight="100.0" fitWidth="100.0" onMouseClicked="#e" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../resources/Images/Faces/5.jpg" />
+                        <Image url="@../../resources/Images/Faces/5.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="100.0" fitWidth="100.0" onMouseClicked="#f" pickOnBounds="true" preserveRatio="true">
@@ -57,7 +57,7 @@
                 </ImageView>
                 <ImageView fitHeight="100.0" fitWidth="100.0" onMouseClicked="#g" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../resources/Images/Faces/7.jpg" />
+                        <Image url="@../../resources/Images/Faces/7.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="100.0" fitWidth="100.0" onMouseClicked="#h" pickOnBounds="true" preserveRatio="true">

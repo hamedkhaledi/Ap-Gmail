@@ -38,6 +38,10 @@ public class Message implements Serializable {
         this.important = false;
     }
 
+    public Message() {
+
+    }
+
     public String getFileName() {
         return FileName;
     }

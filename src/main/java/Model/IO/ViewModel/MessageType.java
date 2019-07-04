@@ -20,5 +20,5 @@ public enum MessageType {
     Change,
     Block,
     Delete, SignIn, Reload,
-    Reply, Star, Read, Unread
+    Reply, Star, Read, Unread, File, Setting, OpenFile, UnBlock
 }

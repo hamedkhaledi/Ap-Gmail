@@ -57,6 +57,8 @@ public class MessageListItemController {
     @FXML
     private ImageView readedStatusImage;
     @FXML
+    private ImageView Image1;
+    @FXML
     private Button subjectButton;
 
     public MessageListItemController(Message message) throws IOException {
@@ -91,6 +93,7 @@ public class MessageListItemController {
 //                    Paths.get("./src/main/resources/Icons/income.png").toUri().toString()));
 //        }
         //set read status image
+        ;
         if (message.isReaded()) {
             readedStatusImage.setImage(new Image(
                     Paths.get("./src/main/resources/Icons/readedMessage.png").toUri().toString()));
@@ -98,6 +101,7 @@ public class MessageListItemController {
             readedStatusImage.setImage(new Image(
                     Paths.get("./src/main/resources/Icons/unreadMessage.png").toUri().toString()));
         }
+        Image1.setImage(new Image(Paths.get(message.getSender().getImagePath()).toUri().toString()));
         return root;
     }
 
@@ -134,7 +138,7 @@ public class MessageListItemController {
     }
 
     public void deleteMessage(ActionEvent event) throws IOException {
-//        if (!message.isRemoved()) {
+        if (!message.isRemoved()) {
 //        ALL_MESSAGES.getAllMessages().remove(message);
 //        FileOutputStream fileOut =
 //                new FileOutputStream("./src/main/resources/messages.ser");
@@ -142,10 +146,11 @@ public class MessageListItemController {
 //        out.writeObject(ALL_MESSAGES.getAllMessages());
 //        out.close();
 //        fileOut.close();
-        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Delete, ClientTemp, null, message));
-        message.setRemoved(true);
-//        removeLabel.setVisible(true);
-//        } else {
+            SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Delete, ClientTemp, null, message));
+            message.setRemoved(true);
+            removeLabel.setVisible(true);
+        }
+        //else {
 //        ALL_MESSAGES.getAllMessages().add(message);
 //        FileOutputStream fileOut =
 //                new FileOutputStream("./src/main/resources/messages.ser");
@@ -156,13 +161,14 @@ public class MessageListItemController {
 //        message.setRemoved(false);
 //        removeLabel.setVisible(false);
 //        }
-        new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
+//        new FxmlLoader().load("./src/main/java/View/EmailPage.fxml");
     }
 
     public void openMessage(ActionEvent event) throws IOException {
         ALL_MESSAGES.ClientMessage = message;
         new FxmlLoader().load("./src/main/java/View/ReadMailPage.fxml");
         message.setReaded(true);
+        SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Read, ClientTemp, null, message));
         readedStatusImage.setImage(new Image(
                 Paths.get("./src/main/resources/Icons/readedMessage.png").toUri().toString()));
         FileOutputStream fileOut =
