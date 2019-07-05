@@ -68,7 +68,7 @@
          </image>
       </ImageView>
       <ImageView fitHeight="48.0" fitWidth="46.0" layoutX="654.0" layoutY="455.0" onMouseClicked="#ClickArrow" onMouseEntered="#ShowArrow" onMouseExited="#OffArrow" pickOnBounds="true" preserveRatio="true" />
-      <ListView fx:id="UserListView" layoutX="200.0" layoutY="56.0" prefHeight="444.0" prefWidth="361.0" style="-fx-background-color: #d528cf;" />
+      <ListView fx:id="UserListView" layoutX="179.0" layoutY="56.0" prefHeight="444.0" prefWidth="365.0" style="-fx-background-color: #d528cf;" />
       <AnchorPane fx:id="ProfilePane" layoutX="428.0" layoutY="503.0" prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="ProfileLabel" alignment="CENTER" layoutX="78.0" prefHeight="59.0" prefWidth="122.0" text="Label" textFill="#332bcd">
@@ -99,6 +99,11 @@
       <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="600.0" layoutY="10.0" onMouseClicked="#BackUp" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/033_-_Download_from_Cloud-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ChatImage" fitHeight="89.0" fitWidth="110.0" layoutX="584.0" layoutY="171.0" onMouseClicked="#Chat2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Icons/blue-mail-send-icon.png" />
          </image>
       </ImageView>
    </children>

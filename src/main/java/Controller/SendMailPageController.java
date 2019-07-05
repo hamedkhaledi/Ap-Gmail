@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.IO.Connection.Connection;
 import Model.IO.Connection.Connection2;
 import Model.IO.Connection.Connection3;
 import Model.IO.FxmlLoader;
@@ -84,6 +85,8 @@ public class SendMailPageController {
     }
 
     public void Send(MouseEvent mouseEvent) throws IOException, ClassNotFoundException {
+        Main.ConnectionTemp = new Connection(SignUpPageController.Temp);
+        Main.ConnectionTemp.initializeServices();
         SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.Reload, ClientTemp, null, null));
         ALL_MESSAGES.initUser(SignInPageController.ConnectionSign);
         Message message = null;

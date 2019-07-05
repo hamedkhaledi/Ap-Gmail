@@ -93,17 +93,14 @@ public class Main extends Application {
 //        ME = ALL_USERS.getAllUsers().get(1);
 //        ALL_USERS.init();
 //        ALL_MESSAGES.init();
-        ConnectionTemp = new Connection(CurrentUser);
-        ConnectionTemp.initializeServices();
-        ConnectionTemp.sendRequest(new ServerMessage(MessageType.Connect, CurrentUser, null, null));
-    }
+       }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         //init stage using FXMLLoader
         FxmlLoader.setMainStage(primaryStage);
         //load "./src/main/java/View/UserMainPage.fxml" using FxmlLoader
-        new FxmlLoader().load("./src/main/java/View/SignInPage.fxml");
+        new FxmlLoader().load("./src/main/java/View/IPPage.fxml");
     }
 
     @Override

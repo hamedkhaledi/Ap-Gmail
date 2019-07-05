@@ -6,10 +6,11 @@ import com.sun.javafx.iio.ios.IosDescriptor;
 
 import java.io.*;
 import java.net.Socket;
- //for send file
+
+//for send file
 public class Connection3 {
     private static final int PORT = 2000;
-    private static final String IP = "localhost";
+    public static String IP = "localhost";
     private static Socket socket;
     private static InputStream in;
     private static DataOutputStream out;

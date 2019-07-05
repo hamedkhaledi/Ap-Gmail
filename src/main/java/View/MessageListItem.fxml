@@ -46,7 +46,7 @@
             <Image url="@../../resources/Icons/readedMessage.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="46.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Garbage" fitHeight="30.0" fitWidth="30.0" layoutX="46.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/Icons/dustbin.png" />
          </image>
@@ -59,12 +59,12 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button fx:id="removeButton1" layoutX="89.0" layoutY="40.0" mnemonicParsing="false" onAction="#ChangeRead" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+      <Button fx:id="readButton" layoutX="89.0" layoutY="40.0" mnemonicParsing="false" onAction="#ChangeRead" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="47.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteMessage" prefHeight="20.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="Garbage">
+      <Button fx:id="removeButton" layoutX="47.0" layoutY="40.0" mnemonicParsing="false" onAction="#deleteMessage" prefHeight="20.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="Garbage">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

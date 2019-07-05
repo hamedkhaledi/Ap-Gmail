@@ -17,6 +17,24 @@ public class Message implements Serializable {
     private boolean readed;
     private boolean important;
     private boolean removed;
+    private boolean removedForMe;
+    private boolean importantForMe;
+
+    public boolean isRemovedForMe() {
+        return removedForMe;
+    }
+
+    public void setRemovedForMe(boolean removedForMe) {
+        this.removedForMe = removedForMe;
+    }
+
+    public boolean isImportantForMe() {
+        return importantForMe;
+    }
+
+    public void setImportantForMe(boolean importantForMe) {
+        this.importantForMe = importantForMe;
+    }
 
     public Message(User sender, User reciever, String time, String subject, String text) {
         this.sender = sender;

@@ -62,18 +62,18 @@ public class ReadMailPageController {
                 task = new Task<String>() {
                     @Override
                     protected String call() throws Exception {
-                        Connection2.main(new String[5]);
+                        Connection2.Main();
                         return "";
                     }
                 };
                 new Thread(task).start();
-                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.OpenFile, ClientTemp, null, ALL_MESSAGES.ClientMessage));
+//                SignInPageController.ConnectionSign.sendRequest(new ServerMessage(MessageType.OpenFile, ClientTemp, null, ALL_MESSAGES.ClientMessage));
+
             }
             if (task != null)
                 task.setOnSucceeded(e -> {
                     try {
                         Openfile();
-
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

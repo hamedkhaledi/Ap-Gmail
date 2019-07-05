@@ -8,19 +8,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+interface All <E> {
 
-public class User implements Serializable {
-    private static final long serialVersionUID = 19L;
-    private String username;//final
-    private String mailAddress;
-    private String password;
-    private int age;
-    private String phoneNumber = "";
-    private String imagePath;
-    private int ImageNumber;
-    private Set<User> blackList = new HashSet<>();
-    private transient ObjectInputStream inputStream;
-    private transient ObjectOutputStream outputStream;
+}
+
+class Person<E> implements All<E>{
 
     private String firstName;
     private String lastName;
@@ -60,31 +52,26 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
+}
+
+public class users extends Person implements Serializable {
+    private static final long serialVersionUID = 20L;
+    private String username;//final
+    private String mailAddress;
+    private String password;
+    private int age;
+    private String phoneNumber = "";
+    private String imagePath;
+    private int ImageNumber;
+    private Set<User> blackList = new HashSet<>();
+    private transient ObjectInputStream inputStream;
+    private transient ObjectOutputStream outputStream;
+
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 '}';
-    }
-
-    public User() {
-
-    }
-
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(String Username) {
-        this.username = Username;
-    }
-
-    public User(String username, ObjectInputStream inputStream, ObjectOutputStream outputStream) {
-        this.username = username;
-        this.inputStream = inputStream;
-        this.outputStream = outputStream;
     }
 
     public void setUsername(String username) {
@@ -168,14 +155,6 @@ public class User implements Serializable {
         this.outputStream = outputStream;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return username.equals(user.username);
-    }
 
     @Override
     public int hashCode() {

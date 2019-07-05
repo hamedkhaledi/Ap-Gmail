@@ -44,11 +44,13 @@ public class EmailPageController {
     public Label ProfileLabel2;
     public ImageView ProfileImage;
     public Line line;
+    public ImageView ChatImage;
     private ArrayList<Message> messagesToShow;
     private ArrayList<User> users;
     private ArrayList<User> usersTemp;
 
     public void initialize() throws IOException, ClassNotFoundException {
+        ChatImage.setVisible(false);
         Arrow.setOpacity(0.3);
         UserListView.setVisible(false);
         messagesListView.setVisible(true);
@@ -71,11 +73,13 @@ public class EmailPageController {
     }
 
     public void showImportant(MouseEvent mouseEvent) {
+        ChatImage.setVisible(false);
         UserListView.setVisible(false);
         messagesListView.setVisible(true);
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages()
                 .stream()
-                .filter(a -> a.getReciever().equals(ClientTemp) && a.isImportant() && !a.isRemoved())
+                .filter(a -> (a.getReciever().equals(ClientTemp) && a.isImportant() && !a.isRemoved())
+                        || (a.getSender().equals(ClientTemp) && a.isImportantForMe() && !a.isRemovedForMe()))
                 .filter(a -> !ClientTemp.getBlackList().contains(a.getSender())).collect(Collectors.toList());
         Collections.reverse(messagesToShow);
         messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
@@ -84,11 +88,13 @@ public class EmailPageController {
     }
 
     public void Chat(MouseEvent mouseEvent) {
+        ChatImage.setVisible(true);
         UserListView.setVisible(true);
         messagesListView.setVisible(false);
+        //List Payamaii tosh payam gerefte
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages()
                 .stream()
-                .filter(a -> a.getReciever().equals(ClientTemp)).collect(Collectors.toList());
+                .filter(a -> a.getReciever().equals(ClientTemp) && !a.isRemoved()).collect(Collectors.toList());
         usersTemp = new ArrayList<>();
         for (Message message : messagesToShow) {
             usersTemp.add(message.getSender());
@@ -103,11 +109,33 @@ public class EmailPageController {
 
     }
 
+    public void Chat2(MouseEvent mouseEvent) {
+        UserListView.setVisible(true);
+        messagesListView.setVisible(false);
+        //List Payamaii tosh payam dade
+        messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages()
+                .stream()
+                .filter(a -> a.getSender().equals(ClientTemp) && !a.isRemovedForMe()).collect(Collectors.toList());
+        usersTemp = new ArrayList<>();
+        for (Message message : messagesToShow) {
+            usersTemp.add(message.getReciever());
+        }
+        users = (ArrayList<User>) ALL_USERS.getAllUsers()
+                .stream()
+                .filter(a -> !ClientTemp.getBlackList().contains(a)
+                        && usersTemp.contains(a)).collect(Collectors.toList());
+        Collections.reverse(users);
+        UserListView.setItems(FXCollections.observableArrayList(users));
+        UserListView.setCellFactory(messagesListView -> new UserListItem2());
+
+    }
+
     public void showSent(MouseEvent event) {
+        ChatImage.setVisible(false);
         UserListView.setVisible(false);
         messagesListView.setVisible(true);
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages().stream()
-                .filter(a -> a.getSender().equals(ClientTemp)).collect(
+                .filter(a -> a.getSender().equals(ClientTemp) && !a.isRemovedForMe()).collect(
                         Collectors.toList());
         Collections.reverse(messagesToShow);
         messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
@@ -115,6 +143,7 @@ public class EmailPageController {
     }
 
     public void Inbox(MouseEvent mouseEvent) {
+        ChatImage.setVisible(false);
         UserListView.setVisible(false);
         messagesListView.setVisible(true);
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages().stream()
@@ -127,10 +156,13 @@ public class EmailPageController {
 
     public void BackUp(MouseEvent mouseEvent) {
         messagesToShow = (ArrayList<Message>) ALL_MESSAGES.getAllMessages().stream()
-                .filter(a -> a.getReciever().equals(ClientTemp))
+                .filter(a -> a.getReciever().equals(ClientTemp) || a.getSender().equals(ClientTemp))
                 .filter(a -> !ClientTemp.getBlackList().contains(a.getSender())).collect(Collectors.toList());
         for (Message message : messagesToShow) {
-            message.setRemoved(false);
+            if (message.getReciever().equals(ClientTemp))
+                message.setRemoved(false);
+            if (message.getSender().equals(ClientTemp))
+                message.setRemovedForMe(false);
         }
         Collections.reverse(messagesToShow);
         messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
@@ -150,14 +182,18 @@ public class EmailPageController {
         if (UsernameRadio.isSelected()) {
             messagesToShow = (ArrayList<Message>) messagesToShow.stream().filter(a -> a.getSender().getUsername().startsWith(SearchText.getText()))
                     .collect(Collectors.toList());
-            messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
-            messagesListView.setCellFactory(messagesListView -> new MessageListItem());
+            users = (ArrayList<User>) users
+                    .stream()
+                    .filter(a -> a.getUsername().startsWith(SearchText.getText())).collect(Collectors.toList());
+
         } else {
             messagesToShow = (ArrayList<Message>) messagesToShow.stream().filter(a -> a.getSubject().startsWith(SearchText.getText()))
                     .collect(Collectors.toList());
-            messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
-            messagesListView.setCellFactory(messagesListView -> new MessageListItem());
         }
+        UserListView.setItems(FXCollections.observableArrayList(users));
+        UserListView.setCellFactory(messagesListView -> new UserListItem2());
+        messagesListView.setItems(FXCollections.observableArrayList(messagesToShow));
+        messagesListView.setCellFactory(messagesListView -> new MessageListItem());
     }
 
     public void Reload(MouseEvent mouseEvent) throws IOException, ClassNotFoundException {

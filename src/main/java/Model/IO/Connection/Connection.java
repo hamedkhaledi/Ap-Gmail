@@ -20,7 +20,7 @@ public class Connection {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     public static final int requestPort = 1378;
-    public static final String serverIP = "localhost";
+    public static String serverIP = "localhost";
 
     public ObjectOutputStream getOut() {
         return out;
